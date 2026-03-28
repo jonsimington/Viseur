@@ -71,6 +71,22 @@ var Viseur = Classe(Observable, {
         if(logUrl) {
             this.loadRemoteGamelog(logUrl);
         }
+        else if(this.urlParms.spectate) {
+            // Direct spectate link: ?spectate=Chess&session=42[&server=host][&port=3088]
+            var gameName = this.urlParms.spectate;
+            var session  = this.urlParms.session || "new";
+            var server   = this.urlParms.server  || window.location.hostname;
+            var port     = parseInt(this.urlParms.port) || 3088;
+
+            this.connect({
+                type:       "Spectate",
+                gameName:   gameName,
+                session:    session,
+                server:     server,
+                port:       port,
+                playerName: "Spectator",
+            });
+        }
         else if(this.urlParms.arena) { // then we are in arena mode
             this.gui.modalMessage("Requesting next gamelog from Arena...");
             $.ajax({
