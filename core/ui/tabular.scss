@@ -3,9 +3,9 @@
 
 .tabular ul.tabular-tabs {
     list-style-type: none;
-    background: $light-gray;
+    background: $bg;
     padding: 0.5em;
-    border-bottom: $gray solid;
+    border-bottom: 1px solid $border;
 }
 
 ul.tabular-tabs > li {
@@ -13,15 +13,21 @@ ul.tabular-tabs > li {
 }
 
 .tabular-tab {
-    border-bottom: transparent 0.125em solid;
+    border-bottom: 2px solid transparent;
     margin: 0 0.5em;
     padding: 0.5em 0;
     cursor: pointer;
-    color: $light-black;
+    color: $text-secondary;
+    font-size: 13px;
+    font-weight: 500;
 
     &.active {
         border-bottom-color: $primary;
-        color: $black;
+        color: $text-primary;
+    }
+
+    &:hover:not(.active) {
+        color: $text-primary;
     }
 
     &:first-child {
@@ -40,12 +46,13 @@ ul.tabular-tabs > li {
     left: 0;
     right: 0;
     bottom: 0;
+    background-color: $surface;
 
     & .tabular-tab-content {
         margin: 1em;
         display: block;
         opacity: 0;
-        @include transition(opacity 0.1667s ease-in-out);
+        @include transition(opacity 150ms ease);
 
         &.active {
             opacity: 1;

@@ -34,19 +34,21 @@
 .playback-pane {
     height: 4em;
     padding: 1em;
-    background: $white;
+    background: $surface;
+    border-top: 1px solid $border;
     @include collapsable;
 
     & button {
-        border: none;
-        background-color: $primary-light;
+        border: 1px solid $border;
+        background-color: $surface-raised;
         display: inline-block;
         width: 2em;
         height: 2em;
         padding: 0;
-        color: $black;
+        color: $text-primary;
         font-size: 0.875em;
         margin: 0;
+        border-radius: 6px;
 
         &:disabled {
             opacity: 0.375;
@@ -55,7 +57,9 @@
 
         &:hover, &:focus {
             &:not(:disabled) {
-                background-color: $primary;
+                background-color: $primary-lightest;
+                border-color: $primary;
+                color: $primary;
             }
         }
     }
@@ -69,7 +73,27 @@
             float: left;
             text-align: left;
             width: 5em;
+            color: $text-secondary;
             @extend .font-monospace;
+        }
+    }
+
+    & .slider-value {
+        color: $text-secondary;
+
+        & input.current-value {
+            background: transparent;
+            border: none;
+            color: $text-secondary;
+            width: 3em;
+            padding: 0;
+            font-size: inherit;
+
+            &:focus {
+                box-shadow: none;
+                border: none;
+                outline: none;
+            }
         }
     }
 
@@ -123,7 +147,7 @@
             font-size: 2em;
             margin-left: -1.125em;
             margin-right: 0.25em;
-            color: $black;
+            color: $text-secondary;
         }
     }
 

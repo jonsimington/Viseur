@@ -13,7 +13,7 @@ li.tree-view-node {
             &::after {
                 content: "Empty";
                 margin-left: 1.5em;
-                color: $dark-gray;
+                color: $text-muted;
                 font-style: italic;
             }
         }
@@ -31,6 +31,7 @@ li.tree-view-node {
         &:before {
             @include icon(square);
             font-size: 0.75em;
+            color: $text-muted;
         }
 
         &.expandable {
@@ -39,6 +40,11 @@ li.tree-view-node {
             &:before {
                 @include icon(plus-square);
                 font-size: 0.75em;
+                color: $text-secondary;
+            }
+
+            &:hover:before {
+                color: $primary;
             }
         }
 
@@ -48,6 +54,7 @@ li.tree-view-node {
             &:before {
                 @include icon(minus-square);
                 font-size: 0.75em;
+                color: $primary;
             }
         }
     }

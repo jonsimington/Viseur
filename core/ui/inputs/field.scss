@@ -5,17 +5,20 @@
     width: 12em;
     display: inline-block;
     line-height: 1.5em;
+    color: $text-secondary;
+    font-size: 13px;
+    font-weight: 500;
 
     & .hint {
         &:before {
-            color: $primary-light;
+            color: $text-muted;
             margin-left: 0.5em;
             @include icon("question-circle");
         }
 
         &:hover:before {
-            color: $primary-dark;
-            transform: scale(1.5);
+            color: $primary;
+            transform: scale(1.1);
             cursor: help;
         }
 

@@ -9,7 +9,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    background: #000;
+    background: $bg;
 
     &.resizing {
         -webkit-touch-callout: none;

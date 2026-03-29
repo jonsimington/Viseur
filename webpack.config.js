@@ -51,9 +51,18 @@ module.exports = {
     devtool: "inline-source-map",
     devServer: {
         allowedHosts: "all",
+        hot: true,
+        liveReload: true,
         static: {
             directory: path.resolve(__dirname),
         },
         port: 8080,
+        watchFiles: {
+            paths: ["./"],
+            options: {
+                usePolling: true,
+                interval: 1000,
+            },
+        },
     },
 };

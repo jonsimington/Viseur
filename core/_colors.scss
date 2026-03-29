@@ -1,21 +1,39 @@
-$white: #fff;
-$black: #000;
-$light-black: #555;
+// go-battle dark theme — matches go-battle-web
+$bg: #0d1117;
+$surface: #161b22;
+$surface-raised: #1c2129;
+$border: #30363d;
+$border-muted: #21262d;
 
-$light-gray: #ddd;
-$gray: #bbb;
-$dark-gray: #999;
+$text-primary: #c9d1d9;
+$text-secondary: #8b949e;
+$text-muted: #484f58;
 
-$error: #c82104;//#e02605;
+// Legacy aliases (used throughout viseur source)
+$white: #c9d1d9;
+$black: #0d1117;
+$light-black: #8b949e;
+$light-gray: #161b22;
+$gray: #30363d;
+$dark-gray: #8b949e;
 
-$primary: #0D9DF2;
-$primary-dark: #3C7BA0;
-$primary-darkest: #02517F;
-$primary-light: #71C9FD;
-$primary-lightest: #C1E6FD;
+$error: #f85149;
 
-$secondary: #FF8C00;
-$secondary-dark: #A87639;
-$secondary-darkest: #864A00;
-$secondary-light: #FFBC6A;
-$secondary-lightest: #FFE2BF;
+$primary: #58a6ff;
+$primary-dark: #388bfd;
+$primary-darkest: #1f6feb;
+$primary-light: #79c0ff;
+$primary-lightest: rgba(88, 166, 255, 0.15);
+
+$secondary: #f78166;
+$secondary-dark: #da6c55;
+$secondary-darkest: #b5553e;
+$secondary-light: #ffa28b;
+$secondary-lightest: rgba(247, 129, 102, 0.15);
+
+$success: #3fb950;
+$success-muted: rgba(63, 185, 80, 0.15);
+$danger: #f85149;
+$danger-muted: rgba(248, 81, 73, 0.15);
+$warning: #d29922;
+$warning-muted: rgba(210, 153, 34, 0.15);

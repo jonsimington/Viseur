@@ -4,9 +4,10 @@
 
 .loading-message {
     text-align: center;
+    color: $text-secondary;
 
     &.error {
-        color: $error;
+        color: $danger;
 
         & .loading-icon:before {
             @include icon(exclamation-triangle);
@@ -16,6 +17,7 @@
 
     & .loading-icon {
         font-size: 5em;
+        color: $primary;
 
         &:before {
             @include loader();

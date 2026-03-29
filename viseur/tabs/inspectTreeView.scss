@@ -5,7 +5,7 @@
 .inspect-tab {
     & .inspect-tree-view:empty::after {
         content: "None";
-        color: $dark-gray;
+        color: $text-muted;
         font-style: italic;
     }
 
@@ -13,16 +13,16 @@
     & li.tree-view-node {
         & > header {
             @include rem(font-size, 1rem);
-            color: $black;
+            color: $text-primary;
             @extend .font-monospace;
 
             & .type-null {
                 font-style: italic;
-                color: $dark-gray;
+                color: $text-muted;
             }
 
             & .type-string {
-                color: #006600;
+                color: #3fb950;
 
                 &:before {
                     content: "\"";
@@ -33,33 +33,34 @@
             }
 
             & .type-boolean  {
-                color: #0033cc;
+                color: #79c0ff;
             }
 
             & .type-number {
-                color: #cc0000;
+                color: #f78166;
             }
 
             & .type-game-object-reference, & .type-game-object {
                 font-weight: bold;
-                color: $light-black;
+                color: $text-primary;
             }
 
             & .type-game-object-reference {
                 text-decoration: underline;
+                color: $primary;
             }
 
             & .type-list {
-                color: #997300;
+                color: #d29922;
             }
 
             & .type-dictionary {
-                color: #b30059;
+                color: #bc8cff;
             }
         }
 
         &.highlighted {
-            background: $secondary-lightest;
+            background: $primary-lightest;
         }
     }
 }

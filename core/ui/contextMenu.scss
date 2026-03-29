@@ -5,28 +5,32 @@ ul.context-menu {
     @include collapsable();
     @include transition(top 0s, left 0s !important);
 
-    border: 0.125em solid $dark-gray;
+    border: 1px solid $border;
+    border-radius: 6px;
     position: absolute;
     top: 0;
     left: 0;
     width: 12em;
 
-    background-color: $light-gray;
-    padding: 0.25em;
+    background-color: $surface;
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 
     & hr {
         border: none;
-        height: 0.125em;
-        background-color: $dark-gray;
-        margin: 0.5em;
+        height: 1px;
+        background-color: $border;
+        margin: 4px 8px;
     }
 
     & .context-menu-item {
         @include collapsable();
 
-        padding: 0.25em;
+        padding: 4px 8px;
         overflow: hidden;
         cursor: pointer;
+        color: $text-primary;
+        border-radius: 4px;
 
         & > i {
             display: inline-block;
@@ -38,7 +42,8 @@ ul.context-menu {
         }
 
         &:hover, &:focus {
-            background-color: $primary-light;
+            background-color: $primary-lightest;
+            color: $primary;
         }
     }
 }
