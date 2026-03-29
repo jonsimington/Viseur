@@ -33,6 +33,9 @@ var BasePane = Classe(BaseElement, {
             self._ticked();
         });
 
+        this._humanPlayerID = null; // set by setHumanPlayer if a human is in the game
+        this._spectatingCurrentPlayerID = null; // tracks current player in spectate mode
+
         BaseElement.init.call(this, {
             players: playerIDs,
             $parent: Viseur.gui.$gamePaneWrapper,
@@ -189,6 +192,26 @@ var BasePane = Classe(BaseElement, {
 
         // update games
         this._updateStatsList(this._gameStatsList, state);
+
+        // In spectate mode (live streaming, no human player), tick the current player's time down
+        var isSpectating = Viseur._rawGamelog && Viseur._rawGamelog.streaming && !this._humanPlayerID;
+        this.$element.toggleClass("spectating", Boolean(isSpectating));
+
+        if(isSpectating) {
+            var currentPlayerID = state.currentPlayer && state.currentPlayer.id;
+            if(currentPlayerID !== this._spectatingCurrentPlayerID) {
+                this._spectatingCurrentPlayerID = currentPlayerID;
+                this.stopTicking();
+                var currentPlayerState = state.gameObjects[currentPlayerID];
+                if(currentPlayerState) {
+                    this.startTicking(currentPlayerState);
+                }
+            }
+        } else if(!isSpectating && this._spectatingCurrentPlayerID !== null) {
+            // Game ended or left live mode — stop ticking
+            this._spectatingCurrentPlayerID = null;
+            this.stopTicking();
+        }
     },
 
     recolor: function() {
@@ -327,6 +350,7 @@ var BasePane = Classe(BaseElement, {
      * @param {string} playerID - the player's id who is the human player
      */
     setHumanPlayer: function(playerID) {
+        this._humanPlayerID = playerID;
         this.$element.find(".player-id-" + playerID).addClass("humans-player");
     },
 });
