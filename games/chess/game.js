@@ -97,7 +97,7 @@ var Game = Classe(BaseGame, {
 
         var self = this;
 
-        this._randomColor = Color().hsl(this.random() * 360, 60, 40).whiten(1.5);
+        this._randomColor = Color.hsl(this.random() * 360, 60, 40).whiten(1.5);
         this._randomColorCompliment = this._randomColor.clone().rotate(180);
 
         this._randomColorComplimentFilter = new PIXI.filters.ColorMatrixFilter();
@@ -262,7 +262,7 @@ var Game = Classe(BaseGame, {
 
     //<<-- Creer-Merge: functions -->> - Code you add between this comment and the end comment will be preserved between Creer re-runs.
 
-    _textColor: Color().rgb(222, 222, 222),
+    _textColor: Color.rgb(222, 222, 222),
     _tileBorderLength: 0.9,
     _borderLength: 0.5,
 

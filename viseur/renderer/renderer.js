@@ -27,6 +27,9 @@ var Renderer = Classe(Observable, BaseElement, {
         BaseElement.init.apply(this, arguments);
 
         this._scene = new PIXI.Container();
+        // Re-apply full-scene FXAA post-processing — pixi v4 had `forceFXAA: true` on the renderer;
+        // pixi v5 removed that option. Adding FXAAFilter to the scene achieves the same result.
+        this._scene.filters = [new PIXI.filters.FXAAFilter()];
 
         // the root of all game pixi elements in the game
         this.rootContainer = new PIXI.Container();
@@ -50,9 +53,10 @@ var Renderer = Classe(Observable, BaseElement, {
         var aa = SettingsManager.get("viseur", "anti-aliasing", true);
 
         // will be resized, just placeholder dimensions
-        this._renderer = new PIXI.autoDetectRenderer(this._pxExternalWidth, this._pxExternalHeight, {
+        this._renderer = PIXI.autoDetectRenderer({
+            width: this._pxExternalWidth,
+            height: this._pxExternalHeight,
             antialias: aa,
-            forceFXAA: aa,
         });
 
         this._bounds = {};
@@ -83,7 +87,7 @@ var Renderer = Classe(Observable, BaseElement, {
             $parent: this.$element,
         });
 
-        this._ticker = new PIXI.ticker.Ticker();
+        this._ticker = new PIXI.Ticker();
         this._ticker.stop();
         this._ticker.add(function() {
             self.render();
@@ -108,7 +112,7 @@ var Renderer = Classe(Observable, BaseElement, {
      * @param {function} callback - callback function to invoke once all functions are loaded
      */
     loadTextures: function(textures, callback) {
-        var loader = PIXI.loader;
+        var loader = new PIXI.Loader();
 
         this._sheets = {};
         this._spriteData = {};

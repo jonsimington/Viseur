@@ -1,15 +1,49 @@
 $fa-font-path: "~font-awesome/fonts";
-@import "~font-awesome/scss/font-awesome";
+@import "font-awesome/scss/font-awesome";
+
+// Map of icon names to their Font Awesome unicode content values
+// Used by the icon() mixin below since modern Sass no longer supports
+// @extend on compound selectors like .fa-name:before
+$fa-icon-map: (
+    "download": $fa-var-download,
+    "eye": $fa-var-eye,
+    "sign-in": $fa-var-sign-in,
+    "file": $fa-var-file,
+    "code": $fa-var-code,
+    "cog": $fa-var-cog,
+    "info-circle": $fa-var-info-circle,
+    "exclamation-triangle": $fa-var-exclamation-triangle,
+    "play": $fa-var-play,
+    "pause": $fa-var-pause,
+    "forward": $fa-var-forward,
+    "backward": $fa-var-backward,
+    "tachometer": $fa-var-tachometer,
+    "arrows-alt": $fa-var-arrows-alt,
+    "tasks": $fa-var-tasks,
+    "minus": $fa-var-minus,
+    "repeat": $fa-var-repeat,
+    "check": $fa-var-check,
+    "caret-down": $fa-var-caret-down,
+    "caret-right": $fa-var-caret-right,
+    "expand": $fa-var-expand,
+    "compress": $fa-var-compress,
+    "globe": $fa-var-globe,
+    "spinner": $fa-var-spinner,
+    "circle-o-notch": $fa-var-circle-o-notch,
+    "square": $fa-var-square,
+    "plus-square": $fa-var-plus-square,
+    "minus-square": $fa-var-minus-square,
+    "question-circle": $fa-var-question-circle,
+);
 
 @mixin icon($icon, $size:"", $rotation:"") {
     @include fa-icon;
-    //@extend .fa;
-    @extend .fa-#{$icon}:before;
+    content: map-get($fa-icon-map, $icon);
 
     @if $size != "" {
         @extend .fa-#{$size}x;
     }
-    else {
+    @else {
         @extend .fa-lg;
     }
 
@@ -25,7 +59,7 @@ $fa-font-path: "~font-awesome/fonts";
 
 @mixin loader() {
     @extend .fa;
-    @extend .fa-circle-o-notch;
+    content: map-get($fa-icon-map, "circle-o-notch");
     @extend .fa-spin;
-    @extend .fa-fw;;
+    @extend .fa-fw;
 }

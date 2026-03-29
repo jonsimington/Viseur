@@ -1,6 +1,35 @@
 var Color = require("color");
 var PIXI = require("pixi.js");
 
+// Backwards compatibility shims for color v3.x API changes
+if (!Color.prototype.hexString) {
+    Color.prototype.hexString = function() {
+        return this.hex();
+    };
+}
+if (!Color.prototype.rgbString) {
+    Color.prototype.rgbString = function() {
+        return this.rgb().string();
+    };
+}
+if (!Color.prototype.rgbaString) {
+    Color.prototype.rgbaString = function() {
+        return this.rgb().string();
+    };
+}
+// v3 is immutable — clone() is a no-op since every operation returns a new instance
+if (!Color.prototype.clone) {
+    Color.prototype.clone = function() {
+        return this;
+    };
+}
+// clearer(ratio) → fade(ratio)
+if (!Color.prototype.clearer) {
+    Color.prototype.clearer = function(ratio) {
+        return this.fade(ratio);
+    };
+}
+
 /**
  * An extension that converts the color's hex string to a hex number, e.g. #FFCC00 -> 0xFFCC00 === 16763904
  *
@@ -12,9 +41,10 @@ Color.prototype.hexNumber = function() {
 
 
 /**
- * Gets a 4x4 color matrix for ColorMatrixFilter operations. Assumes r at 0,0, g, at 1,1, b at 2,2, and a at 3,3, rest are 0s.
+ * Gets a 5x4 color matrix for ColorMatrixFilter operations (pixi v5 format).
+ * Columns: r-mult, g-mult, b-mult, a-mult, offset. Rest are 0.
  *
- * @returns {Array.<number>} an array of 16 numbers, representing a 4x4 color matrix of this color
+ * @returns {Array.<number>} an array of 20 numbers representing a 5x4 color matrix
  */
 Color.prototype.colorMatrix = function() {
     var r = this.red()/255;
@@ -23,10 +53,10 @@ Color.prototype.colorMatrix = function() {
     var a = this.alpha();
 
     return [
-        r, 0, 0, 0,
-        0, g, 0, 0,
-        0, 0, b, 0,
-        0, 0, 0, a,
+        r, 0, 0, 0, 0,
+        0, g, 0, 0, 0,
+        0, 0, b, 0, 0,
+        0, 0, 0, a, 0,
     ];
 };
 
@@ -47,7 +77,7 @@ Color.prototype.colorMatrixFilter = function() {
  * @returns {Color} either black or white
  */
 Color.prototype.contrastingColor = function() {
-    return this.light() ?
+    return this.isLight() ?
         Color("black") :
         Color("white");
 };

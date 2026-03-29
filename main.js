@@ -10,13 +10,13 @@ window.onerror = function(message, source, lineno, colno, error) {
     }
 };
 
-require("font-awesome-webpack");
+require("font-awesome/css/font-awesome.css");
 require("./extensions/");
 require("./core/");
 
 var $ = require("jquery");
 
-$(document).on("ready", function() {
+$(function() {
     window.viseur = require("./viseur");
     window.viseur.start();
 });

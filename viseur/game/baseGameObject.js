@@ -251,7 +251,7 @@ var BaseGameObject = Classe(Observable, {
         }
     },
 
-    _uxHighlightColor: Color().rgb(255, 251, 204), // color to highlight with
+    _uxHighlightColor: Color.rgb(255, 251, 204), // color to highlight with
 
     /**
      * Initializes the PIXI objects for drawing a rounded rectangle around the GameObject for highlights

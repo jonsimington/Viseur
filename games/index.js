@@ -1,11 +1,14 @@
 var games = {};
-var req = require.context("./", true, /^(.*(index.js$))[^.]*$/igm);
+var req = require.context("./", true, /^(.*(index\.js$))[^.]*$/im);
 
 // used to get game name out of
 var front = "./";
 var end = "/index.js";
 
 req.keys().forEach(function(key) {
+    if(key.indexOf("./") !== 0) {
+        return;
+    }
     var namespace = req(key);
     if(namespace.Game) {
         var dir = key.substr("./".length);

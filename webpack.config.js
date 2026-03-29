@@ -1,42 +1,59 @@
 var path = require("path");
 
 module.exports = {
+    mode: "development",
     entry: "./main.js",
     resolve: {
-        root: path.resolve("./"),
-        extensions: ["", ".js"],
+        modules: [path.resolve("./"), "node_modules"],
+        extensions: [".js"],
+        fallback: {
+            "crypto": false,
+        },
     },
     output: {
-        path: __dirname + "/bundle/",
+        path: path.resolve(__dirname, "bundle/"),
         filename: "main.js",
         publicPath: "bundle/",
     },
     module: {
-        loaders: [
-            { test: /\.css$/, loader: "style!css" },
-            { test: /\.html$/, loader: "html" },
-            { test: /\.hbs$/, loader: "handlebars" },
-            { test: /\.json$/, loader: "json-loader" },
-            { test: /\.scss$/, loaders: ["style", "css", "sass"] },
+        rules: [
+            { test: /\.css$/, use: ["style-loader", "css-loader"] },
+            { test: /\.hbs$/, use: "handlebars-loader" },
+            { test: /\.scss$/, use: ["style-loader", "css-loader", {
+                loader: "sass-loader",
+                options: {
+                    api: "modern",
+                    sassOptions: {
+                        quietDeps: true,
+                        silenceDeprecations: ["import", "slash-div", "global-builtin", "color-functions"],
+                        loadPaths: [
+                            path.resolve(__dirname),
+                            path.resolve(__dirname, "node_modules"),
+                        ],
+                    },
+                },
+            }] },
             {
                 test: /\.(jpe?g|png|gif)$/i,
-                loaders: [
-                    "file?hash=sha512&digest=hex&name=[hash].[ext]",
-                    "image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=fals",
-                ],
+                type: "asset/resource",
             },
-            { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff" },
-            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
-        ],
-        postLoaders: [
             {
-                include: path.resolve(__dirname, "node_modules/pixi.js"), // this allows fs.readFileSync to work in pixi.js
-                loader: "transform?brfs",
+                test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                type: "asset",
+                parser: { dataUrlCondition: { maxSize: 10000 } },
+            },
+            {
+                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                type: "asset/resource",
             },
         ],
     },
-    devtool: "#inline-source-map",
+    devtool: "inline-source-map",
     devServer: {
-        disableHostCheck: true,
-    }
+        allowedHosts: "all",
+        static: {
+            directory: path.resolve(__dirname),
+        },
+        port: 8080,
+    },
 };
