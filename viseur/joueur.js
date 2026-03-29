@@ -49,11 +49,13 @@ var Joueur = Classe(Observable, {
 
         this._gamelog.gameName = gameName;
 
+        var wsProtocol = (window.location.protocol === "https:") ? "wss://" : "ws://";
         try {
-            this._ws = new WebSocket("ws://" + server + ":" + port);
+            this._ws = new WebSocket(wsProtocol + server + ":" + port);
         }
         catch(err) {
             this._emit("errored", err);
+            return;
         }
 
         this._ws.onopen = function() {
